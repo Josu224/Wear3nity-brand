@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | WEAR3NITY</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar light">
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <!-- LEFT LINKS -->
+    <nav class="nav-left">
+      <a href="shop.html">Shop</a>
+      <a href="shop.html">All Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <!-- LOGO -->
+    <div class="logo">WEAR3NITY</div>
+
+    <!-- RIGHT -->
+    <nav class="nav-right">
+      <a href="profile.html" class="icon">👤</a>
+      <a href="cart.html" class="icon cart-link">
+        🛒 <span id="cart-count">0</span>
+      </a>
+    </nav>
+
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="menu-header">
+      <span class="close-btn" onclick="toggleMenu()">✕</span>
+    </div>
+
+    <a href="shop.html" onclick="toggleMenu()">Shop</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+  </div>
+
+  <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
+
+  <!-- PAGE HEADER -->
+  <section class="container shop-header">
+    <h1 class="page-title">Shop</h1>
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <button onclick="filterProducts('all')" class="active">All</button>
+      <button onclick="filterProducts('shirts')">Shirts</button>
+      <button onclick="filterProducts('hoodies')">Hoodies</button>
+      <button onclick="filterProducts('accessories')">Accessories</button>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="container">
+    <div id="products" class="grid"></div>
+  </section>
+
+
+  <!-- wear3nity to the world  -->
+  <section class="banner-section fade-in">
+  
+    <img src="assets/images/profile.jpg" alt="Wear3nity Banner" class="banner-img" />
+  
+    <div class="banner-overlay">
+      <h2>WEAR3NITY TO THE WORLD</h2>
+      <a href="about.html" class="btn primary">View</a>
+    </div>
+  
+  </section>
+
+
+
+
+<!-- Subscription Section -->
+<section class="whatsapp-section fade-in">
+
+  <h2>Join our WhatsApp Group to get 10% off your first order</h2>
+
+  <p>
+    Join to get special offers, free giveaways, and once in a lifetime deals
+  </p>
+
+  <a href="https://chat.whatsapp.com/G8UYQotjYVEBVZTPSitOhn?mode=ems_wa_t" rel="noopener" target="_blank"
+    class="btn primary">
+    Join Now
+  </a>
+
+</section>
+
+
+<!-- footer -->
+<footer class="footer">
+
+  <div class="footer-content">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <h2>WEAR3NITY</h2>
+      <p>Minimal. Bold. Timeless.</p>
+    </div>
+
+    <!-- SOCIALS -->
+    <div class="footer-socials">
+      <h3>Connect</h3>
+
+      <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener "
+        target="_blank" class="social-link">
+        Instagram
+      </a>
+
+      <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
+        class="social-link">
+        TikTok
+      </a>
+
+      <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">
+        WhatsApp
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BIG BACKGROUND TEXT -->
+  <div class="footer-bg-text">WEAR3NITY</div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <p>© 2026 WEAR3NITY — Built for the culture.</p>
+  </div>
+
+</footer>
+
+
+
+
+
+
+
+  <!-- SCRIPTS (ORDER IS IMPORTANT) -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/ui.js"></script>
+
+</body>
+
+</html>

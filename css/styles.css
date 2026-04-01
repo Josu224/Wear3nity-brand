@@ -1,0 +1,1559 @@
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --black: #111;
+  --gray: #777;
+  --light-gray: #f5f5f5;
+  --white: #ffffff;
+}
+
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.5;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
+  padding: 20px 40px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-left a,
+.icon {
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+}
+
+.logo {
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 4px;
+  font-size: 18px;
+  color: white;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+/* CART BADGE */
+#cart-count {
+  background: var(--black);
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  margin-left: 5px;
+}
+
+/* =========================
+   HERO SLIDER
+========================= */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* DARK OVERLAY */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+  padding: 12px 20px;
+  border: 1px solid var(--black);
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+.btn.primary {
+  background: var(--black);
+  color: var(--white);
+}
+
+.btn.primary:hover {
+  background: #222;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn.small {
+  flex: 1;
+  padding: 10px;
+  font-size: 12px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.container {
+  padding: 60px 40px;
+}
+
+.section-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+/* =========================
+   PRODUCT CARD (UPDATED)
+========================= */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* =========================
+   IMAGE (NO CROP VERSION)
+========================= */
+.image-wrapper {
+  width: 100%;
+  height: 280px;
+  /* fixed clean height */
+  background: var(--light-gray);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* IMPORTANT CHANGE */
+.image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* 🔥 SHOW FULL IMAGE */
+}
+
+/* HOVER IMAGE */
+.img-hover {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.image-wrapper:hover .img-hover {
+  opacity: 1;
+}
+
+/* =========================
+   CARD ACTIONS
+========================= */
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* =========================
+   FADE ANIMATION
+========================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.6s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   PRODUCT PAGE
+========================= */
+.thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.thumbs img {
+  width: 60px;
+  cursor: pointer;
+  border: 1px solid #eee;
+}
+
+/* =========================
+   CART
+========================= */
+.cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 20px 0;
+}
+
+.cart-item input {
+  width: 60px;
+  margin: 10px 0;
+}
+
+.cart-item button {
+  border: 1px solid var(--black);
+  background: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+/* =========================
+   LATEST
+========================= */
+.latest-header {
+  margin: 10px 0 30px;
+}
+
+/* =========================
+   VIDEO SECTION
+========================= */
+.video-section {
+  padding: 60px 40px;
+}
+
+/* RESPONSIVE VIDEO */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  padding-top: 56.25%;
+  /* 16:9 ratio */
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =========================
+   VIDEO SECTION
+========================= */
+.video-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* VIDEO WRAPPER */
+.video-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* MAKE VIMEO FILL SCREEN PERFECTLY */
+.video-wrapper iframe {
+  width: 100vw;
+  height: 100vh;
+  border: none;
+
+  /* FIX CROPPING / FIT */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* DARK OVERLAY (FOR TEXT VISIBILITY) */
+.video-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+
+/* TEXT ON VIDEO */
+.video-overlay {
+  position: relative;
+  z-index: 3;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  text-align: center;
+}
+
+.video-overlay h2 {
+  font-size: 40px;
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+.video-overlay p {
+  margin-top: 10px;
+  color: #ddd;
+}
+
+/* not sure if needed */
+/* =========================
+   PRODUCT CARD (UNIFORM FIX)
+========================= */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* IMAGE CONTAINER (KEY FIX) */
+.card img {
+  width: 100%;
+  height: 320px;
+  /* 🔥 controls uniform size */
+  object-fit: contain;
+  /* 🔥 shows FULL image (no crop) */
+  background: #f8f8f8;
+  /* 🔥 clean background for empty space */
+  padding: 10px;
+  /* 🔥 breathing space */
+
+  transition: transform 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* TEXT ALIGNMENT */
+.card h3 {
+  font-size: 14px;
+  margin: 10px 0 5px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* BUTTON GROUP */
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* SMALL BUTTON */
+.btn.small {
+  padding: 8px 10px;
+  font-size: 11px;
+  flex: 1;
+}
+
+/* spacing for shop button and products */
+.section-header {
+  /* text-align: center; */
+  margin-bottom: 50px;
+  /* 🔥 increases space before products */
+}
+
+
+/* landscape image  */
+/* =========================
+   BANNER SECTION
+========================= */
+.banner-section {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  /* 🔥 landscape feel */
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+/* IMAGE */
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* fills nicely for landscape */
+}
+
+/* DARK OVERLAY */
+.banner-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* TEXT + BUTTON */
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  text-align: center;
+}
+
+/* TITLE */
+.banner-overlay h2 {
+  font-size: 36px;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+}
+
+/* BUTTON HOVER POLISH */
+.banner-overlay .btn:hover {
+  background: #222;
+}
+
+/* =========================
+   WHATSAPP SECTION
+========================= */
+.whatsapp-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: #111;
+  color: white;
+}
+
+/* TITLE */
+.whatsapp-section h2 {
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+/* SUBTEXT */
+.whatsapp-section p {
+  font-size: 14px;
+  color: #bbb;
+  max-width: 500px;
+  margin: 0 auto 25px;
+  line-height: 1.6;
+}
+
+/* BUTTON POLISH */
+.whatsapp-section .btn {
+  border-color: white;
+}
+
+.whatsapp-section .btn.primary {
+  background: white;
+  color: black;
+}
+
+.whatsapp-section .btn.primary:hover {
+  background: #ddd;
+}
+
+/* footer design*/
+/* =========================
+   FOOTER
+========================= */
+/* =========================
+   FOOTER (PREMIUM)
+========================= */
+.footer {
+  position: relative;
+  background: #000;
+  color: white;
+  padding: 80px 40px 30px;
+  overflow: hidden;
+}
+
+/* CONTENT */
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+/* BRAND */
+.footer-brand h2 {
+  font-size: 24px;
+  letter-spacing: 5px;
+  margin: 0;
+}
+
+.footer-brand p {
+  margin-top: 10px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* SOCIALS */
+.footer-socials h3 {
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  font-size: 14px;
+  color: #888;
+}
+
+/* SOCIAL LINKS */
+.social-link {
+  display: block;
+  text-decoration: none;
+  color: #ccc;
+  margin-bottom: 10px;
+  font-size: 16px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* UNDERLINE ANIMATION */
+.social-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.social-link:hover {
+  color: white;
+  transform: translateX(8px);
+}
+
+.social-link:hover::after {
+  width: 100%;
+}
+
+/* HUGE BACKGROUND TEXT */
+.footer-bg-text {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 120px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  color: rgba(255, 255, 255, 0.03);
+  /* 🔥 subtle glow */
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* BOTTOM LINE */
+.footer-bottom {
+  border-top: 1px solid #111;
+  margin-top: 60px;
+  padding-top: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #666;
+}
+
+/* MObile responsive */
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+
+  /* NAVBAR */
+  .navbar {
+    grid-template-columns: 1fr auto;
+    padding: 15px 20px;
+  }
+
+  .nav-left {
+    display: none;
+    /* hide for clean mobile UI */
+  }
+
+  .logo {
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-align: left;
+  }
+
+  .nav-right {
+    gap: 12px;
+  }
+
+  /* HERO TEXT */
+  .hero {
+    height: 90vh;
+  }
+
+  /* CONTAINER */
+  .container {
+    padding: 40px 20px;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: 30px;
+  }
+
+  .section-header h2 {
+    font-size: 18px;
+  }
+
+  /* 🔥 PRODUCT GRID FIX (2 x 4) */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* PRODUCT CARD */
+  .card img {
+    height: 220px;
+    /* smaller but still clean */
+  }
+
+  .card h3 {
+    font-size: 13px;
+  }
+
+  .price {
+    font-size: 12px;
+  }
+
+  /* BUTTONS */
+  .btn {
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .btn.small {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  /* VIDEO TEXT */
+  .video-overlay h2 {
+    font-size: 24px;
+  }
+
+  .video-overlay p {
+    font-size: 12px;
+  }
+
+  /* BANNER */
+  .banner-section {
+    height: 50vh;
+  }
+
+  .banner-overlay h2 {
+    font-size: 22px;
+  }
+
+  /* WHATSAPP SECTION */
+  .whatsapp-section {
+    padding: 60px 20px;
+  }
+
+  .whatsapp-section h2 {
+    font-size: 20px;
+  }
+
+  .whatsapp-section p {
+    font-size: 13px;
+  }
+
+  /* FOOTER */
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-bg-text {
+    font-size: 60px;
+  }
+}
+
+/* =========================
+   HAMBURGER MENU
+========================= */
+.hamburger {
+  display: none;
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+}
+
+/* MOBILE MENU PANEL */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100%;
+  background: black;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  padding: 80px 20px;
+  gap: 20px;
+
+  transition: 0.3s ease;
+  z-index: 20;
+}
+
+.mobile-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* ACTIVE STATE */
+.mobile-menu.active {
+  left: 0;
+}
+
+/* =========================
+   MOBILE FIX
+========================= */
+@media (max-width: 768px) {
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-left {
+    display: none;
+  }
+
+  .navbar {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .logo {
+    text-align: center;
+  }
+}
+
+/* =========================
+   MOBILE MENU HEADER
+========================= */
+.menu-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* =========================
+   OVERLAY (BACKGROUND)
+========================= */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s ease;
+  z-index: 15;
+}
+
+/* ACTIVE OVERLAY */
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+/* shopping page  */
+/* =========================
+   SHOP PAGE
+========================= */
+.page-title {
+  font-size: 28px;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+/* FILTER BAR */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-bar button {
+  border: 1px solid var(--black);
+  background: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s ease;
+}
+
+.filter-bar button.active,
+.filter-bar button:hover {
+  background: var(--black);
+  color: white;
+}
+
+/* shop nav bar  */
+/* =========================
+   LIGHT NAVBAR (SHOP PAGE)
+========================= */
+.navbar.light {
+  position: relative;
+  background: white;
+}
+
+.navbar.light .nav-left a,
+.navbar.light .icon,
+.navbar.light .logo {
+  color: black;
+}
+
+/* Gallery Page */
+/* =========================
+   GALLERY PAGE
+========================= */
+/* =========================
+   GALLERY GRID
+========================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+/* =========================
+   GALLERY ITEM (FIXED)
+========================= */
+.gallery-item {
+  width: 100%;
+  height: 300px;
+  /* 🔥 uniform height */
+  background: #f5f5f5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* 🔥 KEY FIX: SHOW FULL IMAGE */
+.gallery-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* 🔥 no cropping */
+
+  transition: transform 0.4s ease;
+}
+
+/* HOVER EFFECT */
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* =========================
+   LIGHTBOX (FULLSCREEN VIEW)
+========================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+/* ACTIVE STATE */
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* IMAGE */
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+
+  border-radius: 6px;
+  background: #fff;
+  padding: 10px;
+
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+/* SMOOTH ZOOM-IN */
+.lightbox.active img {
+  transform: scale(1);
+}
+
+/* OPTIONAL CLOSE BUTTON */
+.lightbox::after {
+  content: "✕";
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.lightbox::after:hover {
+  opacity: 1;
+}
+
+/* page awareness */
+.nav-left a.active {
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* =========================
+   ABOUT HERO IMAGE
+========================= */
+.about-hero {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+
+.about-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* OVERLAY */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #fff;
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+.hero-overlay p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* end hero overlay */
+
+/* =========================
+   ETHOS SECTION
+========================= */
+.ethos {
+  text-align: center;
+  padding: 80px 20px;
+  max-width: 800px;
+}
+
+/* BLUE TITLE */
+.ethos-title {
+  color: #2f6bff;
+  /* your brand blue */
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+/* BOLD STATEMENT */
+.ethos-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* MAIN TEXT */
+.ethos-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* BLUE ITALIC LINE */
+.ethos-highlight {
+  color: #2f6bff;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* =========================
+   ABOUT IMAGE SECTION
+========================= */
+.about-image {
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 🔥 keeps it clean + not stretched */
+  display: block;
+}
+
+/* =========================
+   ETHOS BLOCKS
+========================= */
+.ethos-blocks {
+  padding: 80px 20px;
+  max-width: 900px;
+}
+
+/* EACH BLOCK */
+.ethos-block {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+/* IMAGE */
+.ethos-block img {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 25px;
+}
+
+/* TITLE */
+.ethos-block h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* TEXT */
+.ethos-block p {
+  font-size: 1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* =========================
+   PROFILE PAGE
+========================= */
+/* =========================
+   PROFILE UPGRADE
+========================= */
+
+.profile {
+  padding: 80px 20px;
+}
+
+/* GRID LAYOUT */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+/* LEFT SIDE */
+.profile-left {
+  text-align: center;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #eee;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* RIGHT SIDE */
+.profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* FORM */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* BUTTONS */
+.profile-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+}
+
+/* =========================
+   CART PAGE
+========================= */
+.cart-page {
+  padding: 80px 20px;
+}
+
+/* CART ITEMS */
+.cart-items {
+  margin-top: 30px;
+}
+
+/* SINGLE ITEM */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* LEFT */
+.cart-item h4 {
+  margin-bottom: 5px;
+}
+
+/* INPUT */
+.cart-item input {
+  width: 60px;
+  padding: 5px;
+}
+
+/* BUTTON */
+.cart-item button {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+
+/* SUMMARY */
+.cart-summary {
+  margin-top: 40px;
+  text-align: right;
+}
+
+.cart-summary h2 {
+  margin-bottom: 15px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-summary {
+    text-align: left;
+  }
+}
+
+
+
+/* cart and shii */
+/* =========================
+   CART PAGE - PREMIUM UI
+========================= */
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: translateY(-3px);
+}
+
+/* IMAGE */
+.cart-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* DETAILS */
+.cart-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* TOP (NAME + REMOVE) */
+.cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.cart-top h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* REMOVE BUTTON */
+.remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+  color: red;
+}
+
+/* META */
+.cart-meta {
+  font-size: 13px;
+  color: #777;
+  margin: 5px 0;
+}
+
+/* PRICE */
+.cart-price {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* BOTTOM */
+.cart-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* QUANTITY BOX */
+.qty-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.qty-box button {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.qty-box span {
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+/* TOTAL */
+.item-total {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* =========================
+   CART SUMMARY
+========================= */
+
+.cart-summary {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+#cart-total {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+#checkout-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+/* =========================
+   PROFILE FORM (PREMIUM UI)
+========================= */
+
+.profile-form {
+  max-width: 500px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* FLOATING LABEL STYLE */
+.form-group {
+  position: relative;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 16px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* FOCUS EFFECT */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+/* LABEL */
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  background: #fff;
+  padding: 0 6px;
+  font-size: 13px;
+  color: #888;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* FLOAT LABEL WHEN ACTIVE */
+.form-group input:focus+label,
+.form-group input:valid+label,
+.form-group textarea:focus+label,
+.form-group textarea:valid+label {
+  top: -8px;
+  font-size: 11px;
+  color: #007BFF;
+}
+
+/* TEXTAREA FIX */
+.form-group textarea {
+  resize: none;
+}
+
+/* FULL WIDTH BUTTON */
+.btn.full {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+/* BUTTON HOVER */
+.btn.primary {
+  background: #007BFF;
+  color: #fff;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.btn.primary:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* FLOAT LABEL WHEN INPUT HAS VALUE */
+.form-group input:not(:placeholder-shown)+label,
+.form-group textarea:not(:placeholder-shown)+label {
+  top: -8px;
+  font-size: 11px;
+  color: #007BFF;
+}

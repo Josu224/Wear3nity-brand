@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEAR3NITY</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <header class="navbar">
+
+    <!-- LEFT (HAMBURGER FOR MOBILE) -->
+    <div class="hamburger" onclick="toggleMenu()">
+      ☰
+    </div>
+
+    <!-- LEFT LINKS (DESKTOP) -->
+    <nav class="nav-left">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="shop.html">All Products</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <!-- CENTER LOGO -->
+    <div class="logo">WEAR3NITY</div>
+
+    <!-- RIGHT ICONS -->
+    <nav class="nav-right">
+      <a href="profile.html" class="icon">👤</a>
+
+      <a href="cart.html" class="icon cart-link">
+        🛒 <span id="cart-count">0</span>
+      </a>
+    </nav>
+
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu">
+
+    <!-- CLOSE BUTTON -->
+    <div class="menu-header">
+      <span class="close-btn" onclick="toggleMenu()">✕</span>
+    </div>
+
+    <!-- LINKS -->
+    <a href="shop.html" onclick="toggleMenu()">Shop</a>
+    <a href="shop.html" onclick="toggleMenu()">All Products</a>
+    <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
+    <a href="about.html" onclick="toggleMenu()">About</a>
+
+  </div>
+
+  <!-- OVERLAY (for click outside) -->
+  <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
+  <!-- image slide -->
+  <section class="hero">
+    <div class="hero-slider">
+      <img src="assets/images/1.jpg" alt="" class="slide active" />
+      <img src="assets/images/4.jpg" alt="" class="slide" />
+      <img src="assets/images/10.jpg" alt="" class="slide" />
+    </div>
+
+    <!-- <div class="hero-overlay">
+    <h1>Refined Everyday Wear</h1>
+    <p>Minimal. Clean. Intentional.</p>
+    <a href="shop.html" class="btn primary">Shop Collection</a>
+  </div> -->
+  </section>
+
+  <!-- Latest Section -->
+  <section class="container">
+    <h2 class="section-title">Latest</h2>
+
+    <div class="latest-header">
+      <a href="shop.html" class="btn primary">Shop Now</a>
+    </div>
+
+    <div id="latest-products" class="grid"></div>
+  </section>
+
+  <!-- Brand Video -->
+  <section class="video-section">
+    <div class="video-wrapper">
+      <iframe src="https://player.vimeo.com/video/1170203037?autoplay=1&muted=1&loop=1&background=1" frameborder="0"
+        allow="autoplay; fullscreen" allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="video-overlay">
+      <h2>WEAR3NITY</h2>
+      <p>Crafted for presence.</p>
+    </div>
+  </section>
+
+
+  <!-- Shirts section -->
+  <section class="container fade-in">
+
+    <!-- SECTION HEADER -->
+    <div class="section-header">
+      <h2>Shirts</h2>
+      <a href="shop.html" class="btn primary">Shop Now</a>
+    </div>
+
+    <!-- PRODUCTS GRID -->
+    <div class="grid">
+
+      <!-- ITEM 1 -->
+      <div class="card">
+        <img src="assets/images/IMG_2645.jpg" alt="Shirt" />
+        <h3>WEAR3NITY Polo </h3>
+        <p class="price">₦15000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(1)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Classic White Shirt', 15000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="card">
+        <img src="assets/images/front.jpg" alt="Shirt" />
+        <h3>Retro Jersey</h3>
+        <p class="price">₦18000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(2)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Black Slim Shirt', 18000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="card">
+        <img src="assets/images/IMG_2500.jpg" alt="Shirt" />
+        <h3>Acid-Wash Tee</h3>
+        <p class="price">₦17000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(3)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Minimal Linen Shirt', 17000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 4 -->
+      <div class="card">
+        <img src="assets/images/IMG_3945.jpg" alt="Shirt" />
+        <h3>Classic Black Tee
+        </h3>
+        <p class="price">₦20000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(4)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Oversized Shirt', 20000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 5 -->
+      <div class="card">
+        <img src="assets/images/prod4.jpg" alt="Shirt" />
+        <h3>Classic White Tee</h3>
+        <p class="price">₦16000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(5)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Striped Shirt', 16000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 6 -->
+      <div class="card">
+        <img src="assets/images/girl2.jpg" alt="Shirt" />
+        <h3>Girls Special Tee</h3>
+        <p class="price">₦14000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(6)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Short Sleeve Shirt', 14000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 7 -->
+      <div class="card">
+        <img src="assets/images/prod9.jpg" alt="Shirt" />
+        <h3>Windbreaker</h3>
+        <p class="price">₦19000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(7)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Premium Cotton Shirt', 19000)">Order</button>
+        </div>
+      </div>
+
+      <!-- ITEM 8 -->
+      <div class="card">
+        <img src="assets/images/new2.jpg" alt="Shirt" />
+        <h3>Casual Everyday Shirt</h3>
+        <p class="price">₦13000</p>
+
+        <div class="card-actions">
+          <button class="btn small" onclick="addCart(8)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrder('Casual Everyday Shirt', 13000)">Order</button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- wear3nity to the world  -->
+  <section class="banner-section fade-in">
+
+    <img src="assets/images/profile.jpg" alt="Wear3nity Banner" class="banner-img" />
+
+    <div class="banner-overlay">
+      <h2>WEAR3NITY TO THE WORLD</h2>
+      <a href="about.html" class="btn primary">View</a>
+    </div>
+
+  </section>
+
+  <!-- Subscription Section -->
+  <section class="whatsapp-section fade-in">
+
+    <h2>Join our WhatsApp Group to get 10% off your first order</h2>
+
+    <p>
+      Join to get special offers, free giveaways, and once in a lifetime deals
+    </p>
+
+    <a href="https://chat.whatsapp.com/G8UYQotjYVEBVZTPSitOhn?mode=ems_wa_t" rel="noopener" target="_blank"
+      class="btn primary">
+      Join Now
+    </a>
+
+  </section>
+
+  <!-- footer -->
+  <footer class="footer">
+
+    <div class="footer-content">
+
+      <!-- BRAND -->
+      <div class="footer-brand">
+        <h2>WEAR3NITY</h2>
+        <p>Minimal. Bold. Timeless.</p>
+      </div>
+
+      <!-- SOCIALS -->
+      <div class="footer-socials">
+        <h3>Connect</h3>
+
+        <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener "
+          target="_blank" class="social-link">
+          Instagram
+        </a>
+
+        <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
+          class="social-link">
+          TikTok
+        </a>
+
+        <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">
+          WhatsApp
+        </a>
+      </div>
+
+    </div>
+
+    <!-- BIG BACKGROUND TEXT -->
+    <div class="footer-bg-text">WEAR3NITY</div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+      <p>© 2026 WEAR3NITY — Built for the culture.</p>
+    </div>
+
+  </footer>
+
+
+
+  <!-- IMPORTANT: include scripts -->
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+
+</html>
