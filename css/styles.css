@@ -1557,3 +1557,14 @@ body {
   font-size: 11px;
   color: #007BFF;
 }
+
+/* Visible nav bar  */
+/* DEFAULT (dark navbar) */
+.hamburger {
+  color: #fff;
+}
+
+/* LIGHT NAVBAR */
+.navbar.light .hamburger {
+  color: #000;
+}
