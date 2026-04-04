@@ -63,7 +63,7 @@ const products = [
     id: 7,
     name: "WEAR3NITY Joggers",
     price: 22000,
-    category: "accessories", // or "pants" later if you expand
+    category: "joggers", // or "pants" later if you expand
     images: ["assets/images/joggers.jpg", "assets/images/joggers2.jpg"],
     description: "Slim fit joggers.",
     sizes: ["S", "M", "L", "XL"]
@@ -73,9 +73,19 @@ const products = [
     id: 8,
     name: "Girls Special Tee",
     price: 18000,
-    category: "shirts",
+    category: "girl",
     images: ["assets/images/girl2.jpg", "assets/images/girl3.jpg"],
     description: "Layer-ready shirt.",
+    sizes: ["S", "M", "L", "XL"]
+  },
+
+  {
+    id: 9,
+    name: "WEAR3NITY Cap",
+    price: 18000,
+    category: "cap",
+    images: ["assets/images/cap.jpg", "assets/images/cap.jpg"],
+    description: "Layer-ready cap.",
     sizes: ["S", "M", "L", "XL"]
   }
 ];
