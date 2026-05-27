@@ -10,36 +10,47 @@
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
     rel="stylesheet">
   <style>
-    /* Gallery page specific styles */
+    /* === FORCE 2-COLUMN GRID ON ALL SCREENS === */
+    /* Override any existing gallery-grid styles from main CSS */
+    .gallery-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 16px !important;
+    }
+
+    /* Slightly larger gap on tablets and desktops */
+    @media (min-width: 768px) {
+      .gallery-grid {
+        gap: 24px !important;
+      }
+    }
+
+    /* Optional: for very tiny screens (below 400px) you may still want 2 columns,
+       but if images become too small you can uncomment the following:
+    @media (max-width: 399px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+      }
+    }
+    */
+
+    /* Gallery container – ensure it doesn't break the grid */
     .gallery-container {
       max-width: 1400px;
       margin: 0 auto;
       padding: 20px 24px;
     }
 
-    /* 2 columns on ALL screen sizes (mobile, tablet, desktop) */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    /* Very tiny screens (below 400px) – optional fallback to 1 column if images become too small */
-    @media (max-width: 399px) {
-      .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-    }
-
-    /* Slightly wider gap on larger screens */
     @media (min-width: 768px) {
-      .gallery-grid {
-        gap: 24px;
-      }
-
       .gallery-container {
         padding: 30px 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-container {
+        padding: 12px 16px;
       }
     }
 
@@ -47,7 +58,6 @@
     .gallery-item {
       position: relative;
       aspect-ratio: 4 / 5;
-      /* Elegant portrait lookbook feel */
       overflow: hidden;
       border-radius: 16px;
       background: #2A1D12;
@@ -62,7 +72,7 @@
       transition: transform 0.5s ease;
     }
 
-    /* Hover effects only on devices that support hover (desktops/laptops) */
+    /* Hover effects for desktops */
     @media (hover: hover) {
       .gallery-item:hover {
         transform: translateY(-6px);
@@ -96,7 +106,7 @@
       }
     }
 
-    /* Page title styling – responsive */
+    /* Page title styling */
     .page-title {
       font-size: 36px;
       letter-spacing: 4px;
@@ -130,10 +140,6 @@
       .gallery-subtext {
         font-size: 12px;
         margin-bottom: 20px;
-      }
-
-      .gallery-container {
-        padding: 12px 16px;
       }
     }
   </style>
@@ -177,10 +183,10 @@
     <p class="gallery-subtext">Moments. Style. Identity.</p>
   </section>
 
-  <!-- GALLERY GRID – 2 columns on all devices (2x12) -->
+  <!-- GALLERY GRID – FORCED 2 COLUMNS ON ALL DEVICES -->
   <section class="gallery-container">
     <div class="gallery-grid">
-      <!-- 24 images (2 columns x 12 rows) – same list -->
+      <!-- All 24 images -->
       <div class="gallery-item" onclick="openLightbox('assets/images/1.jpg')">
         <img src="assets/images/1.jpg" alt="Gallery Image 1" loading="lazy">
       </div>
@@ -305,14 +311,13 @@
     </div>
   </footer>
 
-  <!-- LIGHTBOX & CART SCRIPT (improved touch support) -->
+  <!-- LIGHTBOX & CART SCRIPT -->
   <script>
     function openLightbox(imageSrc) {
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');
       lightboxImg.src = imageSrc;
       lightbox.classList.add('active');
-      // Prevent body scroll when lightbox is open
       document.body.style.overflow = 'hidden';
     }
 
@@ -322,12 +327,10 @@
       document.body.style.overflow = '';
     }
 
-    // Close lightbox with Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeLightbox();
     });
 
-    // Update cart count from localStorage
     function updateCartCountDisplay() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
