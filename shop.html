@@ -9,35 +9,118 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
     rel="stylesheet">
+  <style>
+    /* Same card styles as homepage */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: #2A1D12;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--luxe-gold);
+      margin: 0;
+    }
+
+    .variant-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .variant-group label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    select {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-light);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .card-actions .btn.small {
+      flex: 1;
+      text-align: center;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .filter-bar button {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.3s ease;
+      color: var(--text-light);
+      border-radius: 30px;
+    }
+
+    .filter-bar button.active,
+    .filter-bar button:hover {
+      background: #000000;
+      color: white;
+      border-color: #000000;
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- NAVBAR -->
   <header class="navbar light">
-
-    <!-- HAMBURGER -->
     <div class="hamburger" onclick="toggleMenu()">☰</div>
-
-    <!-- LEFT LINKS -->
     <nav class="nav-left">
+      <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
       <a href="shop.html">All Products</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
     </nav>
-
-    <!-- LOGO -->
     <div class="logo">WEAR3NITY</div>
-
-    <!-- RIGHT -->
     <nav class="nav-right">
       <a href="profile.html" class="icon">👤</a>
       <a href="cart.html" class="icon cart-link">
         🛒 <span id="cart-count">0</span>
       </a>
     </nav>
-
   </header>
 
   <!-- MOBILE MENU -->
@@ -45,134 +128,488 @@
     <div class="menu-header">
       <span class="close-btn" onclick="toggleMenu()">✕</span>
     </div>
-
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="shop.html" onclick="toggleMenu()">Shop</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
   </div>
-
   <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
 
-
-
-
-
-
-
-  <!-- PAGE HEADER -->
+  <!-- PAGE HEADER & FILTER -->
   <section class="container shop-header">
     <h1 class="page-title">Shop</h1>
-
-    <!-- FILTER -->
-    <div class="filter-bar">
-      <button onclick="filterProducts('all')" class="active">All</button>
-      <button onclick="filterProducts('shirts')">TEES</button>
-      <button onclick="filterProducts('hoodies')">HOODIES</button>
-      <button onclick="filterProducts('cap')">CAPS</button>
-      <button onclick="filterProducts('girl')">SABI GIRLS</button>
-      <button onclick="filterProducts('joggers')">Joggers</button>
-      <!-- <button onclick="filterProducts('accessories')">Accessories</button> -->
+    <div class="filter-bar" id="filter-bar">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="tees">TEES</button>
+      <button data-filter="hoodies">HOODIES</button>
+      <button data-filter="caps">CAPS</button>
+      <button data-filter="girl">SABI GIRLS</button>
+      <button data-filter="joggers">Joggers</button>
     </div>
   </section>
 
-  <!-- PRODUCTS -->
+  <!-- PRODUCT GRID (static, all products) -->
   <section class="container">
-    <div id="products" class="grid"></div>
+    <div class="grid" id="product-grid">
+      <!-- WEAR3NITY Polo (shirts) -->
+      <div class="card" data-category="tees"
+        data-color-images='{"Black":"assets/images/IMG_2647.jpg","White":"assets/images/IMG_2645.jpg"}'>
+        <img src="assets/images/IMG_2647.jpg" alt="WEAR3NITY Polo" class="product-main-image" />
+        <h3>WEAR3NITY Polo</h3>
+        <p class="price">₦15,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 1, 'WEAR3NITY Polo', 15000)">Add to Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 1, 'WEAR3NITY Polo', 15000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Retro Jersey (tees) -->
+      <div class="card" data-category="tees" data-color-images='{"Black":"assets/images/front.jpg"}'>
+        <img src="assets/images/front.jpg" alt="Retro Jersey" class="product-main-image" />
+        <h3>Retro Jersey</h3>
+        <p class="price">₦18,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 2, 'Retro Jersey', 18000)">Add to Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 2, 'Retro Jersey', 18000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Acid-Wash Tee (tees) -->
+      <div class="card" data-category="tees"
+        data-color-images='{"Brown":"assets/images/IMG_2500.jpg","Black":"assets/images/prod2.jpg"}'>
+        <img src="assets/images/IMG_2500.jpg" alt="Acid-Wash Tee" class="product-main-image" />
+        <h3>Acid-Wash Tee</h3>
+        <p class="price">₦17,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Brown">Brown</option>
+            <option value="Black">Black</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 3, 'Acid-Wash Tee', 17000)">Add to Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 3, 'Acid-Wash Tee', 17000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Sleeveless (tees) -->
+      <div class="card" data-category="tees"
+        data-color-images='{"Black":"assets/images/sleeveless.jpg","Charcoal":"assets/images/IMG_1423.jpg"}'>
+        <img src="assets/images/sleeveless.jpg" alt="Sleeveless" class="product-main-image" />
+        <h3>Sleeveless</h3>
+        <p class="price">₦20,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+            <option value="Charcoal">Charcoal</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 4, 'Sleeveless', 20000)">Add to Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 4, 'Sleeveless', 20000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Classic White Tee (tees) -->
+      <div class="card" data-category="tees"
+        data-color-images='{"White":"assets/images/prod4.jpg","Cream":"assets/images/prod9.jpg"}'>
+        <img src="assets/images/prod4.jpg" alt="Classic White Tee" class="product-main-image" />
+        <h3>Classic White Tee</h3>
+        <p class="price">₦16,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="White">White</option>
+            <option value="Cream">Cream</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 5, 'Classic White Tee', 16000)">Add to
+            Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 5, 'Classic White Tee', 16000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Girls Special Tee (girl) -->
+      <div class="card" data-category="girl"
+        data-color-images='{"Pink":"assets/images/girl2.jpg","Black":"assets/images/girl1.jpg","White":"assets/images/girl3.jpg"}'>
+        <img src="assets/images/girl2.jpg" alt="Girls Special Tee" class="product-main-image" />
+        <h3>Girls Special Tee</h3>
+        <p class="price">₦14,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Pink">Pink</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="XS">XS</option>
+            <option value="S" selected>S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 6, 'Girls Special Tee', 14000)">Add to
+            Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 6, 'Girls Special Tee', 14000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Hoodie (hoodies) -->
+      <div class="card" data-category="hoodies"
+        data-color-images='{"Brown":"assets/images/IMG_0757.jpg","Beige":"assets/images/IMG_0801.jpg"}'>
+        <img src="assets/images/IMG_0757.jpg" alt="Hoodie" class="product-main-image" />
+        <h3>Hoodie</h3>
+        <p class="price">₦19,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Brown">Brown</option>
+            <option value="Beige">Beige</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 7, 'Hoodie', 19000)">Add to Cart</button>
+          <button class="btn primary small" onclick="quickOrderWithOptions(event, 7, 'Hoodie', 19000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Black Essential Hoodie (hoodies) -->
+      <!-- <div class="card" data-category="hoodies" data-color-images='{"Black":"assets/images/IMG_0802.jpg"}'>
+        <img src="assets/images/IMG_0802.jpg" alt="Black Essential Hoodie" class="product-main-image" />
+        <h3>Black Essential Hoodie</h3>
+        <p class="price">₦25,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 9, 'Black Essential Hoodie', 25000)">Add to
+            Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 9, 'Black Essential Hoodie', 25000)">Order</button>
+        </div>
+      </div> -->
+
+      <!-- WEAR3NITY Joggers (joggers) -->
+      <div class="card" data-category="joggers" data-color-images='{"Black":"assets/images/joggers.jpg","Brown":"assets/images/joggers2.jpg"}'>
+        <img src="assets/images/joggers.jpg" alt="WEAR3NITY Joggers" class="product-main-image" />
+        <h3>WEAR3NITY Joggers</h3>
+        <p class="price">₦22,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+            <option value="Brown">Brown</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 10, 'WEAR3NITY Joggers', 22000)">Add to
+            Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 10, 'WEAR3NITY Joggers', 22000)">Order</button>
+        </div>
+      </div>
+
+      <!-- WEAR3NITY Cap (caps) -->
+      <div class="card" data-category="caps" data-color-images='{"Black":"assets/images/cap.jpg"}'>
+        <img src="assets/images/cap.jpg" alt="WEAR3NITY Cap" class="product-main-image" />
+        <h3>WEAR3NITY Cap</h3>
+        <p class="price">₦18,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="One size" selected>One size</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 11, 'WEAR3NITY Cap', 18000)">Add to Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 11, 'WEAR3NITY Cap', 18000)">Order</button>
+        </div>
+      </div>
+
+      <!-- Casual Everyday Shirt (tees) -->
+      <div class="card" data-category="tees"
+        data-color-images='{"Black":"assets/images/new2.jpg","BlackWhite":"assets/images/new.jpg","Beige":"assets/images/new3.jpg"}'>
+        <img src="assets/images/new2.jpg" alt="Casual Everyday Shirt" class="product-main-image" />
+        <h3>Casual Everyday Shirt</h3>
+        <p class="price">₦13,000</p>
+        <div class="variant-group">
+          <label>Color:</label>
+          <select class="product-color" title="Select color">
+            <option value="Black">Black</option>
+            <option value="BlackWhite">Black & White</option>
+            <option value="Beige">White</option>
+          </select>
+        </div>
+        <div class="variant-group">
+          <label>Size:</label>
+          <select class="product-size" title="Select size">
+            <option value="S">S</option>
+            <option value="M" selected>M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+        </div>
+        <div class="card-actions">
+          <button class="btn small" onclick="addCartWithOptions(event, 8, 'Casual Everyday Shirt', 13000)">Add to
+            Cart</button>
+          <button class="btn primary small"
+            onclick="quickOrderWithOptions(event, 8, 'Casual Everyday Shirt', 13000)">Order</button>
+        </div>
+      </div>
+    </div>
   </section>
 
-
-  <!-- wear3nity to the world  -->
+  <!-- BANNER & WHATSAPP SECTIONS (same as before) -->
   <section class="banner-section fade-in">
-  
     <img src="assets/images/profile.jpg" alt="Wear3nity Banner" class="banner-img" />
-  
     <div class="banner-overlay">
       <h2>WEAR3NITY TO THE WORLD</h2>
       <a href="about.html" class="btn primary">View</a>
     </div>
-  
   </section>
 
+  <section class="whatsapp-section fade-in">
+    <h2>Join our WhatsApp Group to get 10% off your first order</h2>
+    <p>Join to get special offers, free giveaways, and once in a lifetime deals</p>
+    <a href="https://chat.whatsapp.com/G8UYQotjYVEBVZTPSitOhn?mode=ems_wa_t" rel="noopener" target="_blank"
+      class="btn primary">Join Now</a>
+  </section>
 
-
-
-<!-- Subscription Section -->
-<section class="whatsapp-section fade-in">
-
-  <h2>Join our WhatsApp Group to get 10% off your first order</h2>
-
-  <p>
-    Join to get special offers, free giveaways, and once in a lifetime deals
-  </p>
-
-  <a href="https://chat.whatsapp.com/G8UYQotjYVEBVZTPSitOhn?mode=ems_wa_t" rel="noopener" target="_blank"
-    class="btn primary">
-    Join Now
-  </a>
-
-</section>
-
-<!-- BACK TO HOME -->
-<div class="back-home">
-  <a href="#" onclick="history.back()">← Go Back</a>
-</div>
-
-
-
-<!-- footer -->
-<footer class="footer">
-
-  <div class="footer-content">
-
-    <!-- BRAND -->
-    <div class="footer-brand">
-      <h2>WEAR3NITY</h2>
-      <p>Minimal. Bold. Timeless.</p>
-    </div>
-
-    <!-- SOCIALS -->
-    <div class="footer-socials">
-      <h3>Connect</h3>
-
-      <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener "
-        target="_blank" class="social-link">
-        Instagram
-      </a>
-
-      <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
-        class="social-link">
-        TikTok
-      </a>
-
-      <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">
-        WhatsApp
-      </a>
-    </div>
-
+  <div class="back-home">
+    <a href="#" onclick="history.back()">← Go Back</a>
   </div>
 
-  <!-- BIG BACKGROUND TEXT -->
-  <div class="footer-bg-text">WEAR3NITY</div>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h2>WEAR3NITY</h2>
+        <p>Minimal. Bold. Timeless.</p>
+      </div>
+      <div class="footer-socials">
+        <h3>Connect</h3>
+        <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener"
+          target="_blank" class="social-link">Instagram</a>
+        <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
+          class="social-link">TikTok</a>
+        <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bg-text">WEAR3NITY</div>
+    <div class="footer-bottom">
+      <p>© 2026 WEAR3NITY — Built for the culture.</p>
+    </div>
+  </footer>
 
-  <!-- BOTTOM -->
-  <div class="footer-bottom">
-    <p>© 2026 WEAR3NITY — Built for the culture.</p>
-  </div>
+  <!-- Colour‑switching + filter + cart scripts -->
+  <script>
+    // ---------- COLOUR SWITCHING ----------
+    function initColorSwitching() {
+      document.querySelectorAll('.card').forEach(card => {
+        const colorSelect = card.querySelector('.product-color');
+        if (!colorSelect) return;
 
-</footer>
+        const img = card.querySelector('.product-main-image');
+        if (!img) return;
 
+        let colorImages = {};
+        try {
+          const attr = card.getAttribute('data-color-images');
+          if (attr) colorImages = JSON.parse(attr);
+        } catch (e) { console.warn(e); }
 
+        if (Object.keys(colorImages).length === 0) return;
 
+        const defaultImage = img.src;
+        colorSelect.addEventListener('change', (e) => {
+          const selectedColor = e.target.value;
+          const newImage = colorImages[selectedColor];
+          if (newImage) img.src = newImage;
+          else img.src = defaultImage;
+        });
+      });
+    }
 
+    // ---------- CART FUNCTIONS (same as homepage) ----------
+    function getSelectedOptions(buttonElement) {
+      const card = buttonElement.closest('.card');
+      const color = card.querySelector('.product-color').value;
+      const size = card.querySelector('.product-size').value;
+      return { color, size };
+    }
 
+    window.addCartWithOptions = function (event, productId, productName, productPrice) {
+      const { color, size } = getSelectedOptions(event.target);
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingIndex = cart.findIndex(item => item.id === productId && item.color === color && item.size === size);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push({ id: productId, name: productName, price: productPrice, color, size, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCountDisplay();
+      alert(`${productName} (${color}, ${size}) added to cart`);
+    };
 
+    window.quickOrderWithOptions = function (event, productId, productName, productPrice) {
+      const { color, size } = getSelectedOptions(event.target);
+      const message = `I want to order ${productName} (${color}, Size ${size}) for ₦${productPrice}`;
+      window.open(`https://wa.me/2347025776737?text=${encodeURIComponent(message)}`, '_blank');
+    };
 
-  <!-- SCRIPTS (ORDER IS IMPORTANT) -->
-  <script src="js/products.js"></script>
+    function updateCartCountDisplay() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountSpan = document.getElementById('cart-count');
+      if (cartCountSpan) cartCountSpan.textContent = totalItems;
+    }
+
+    // ---------- FILTER FUNCTION ----------
+    function setupFilter() {
+      const filterButtons = document.querySelectorAll('.filter-bar button');
+      const productCards = document.querySelectorAll('.card');
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filterValue = btn.getAttribute('data-filter');
+          // Update active class
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          // Filter products
+          productCards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            if (filterValue === 'all' || category === filterValue) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    // ---------- INITIALISE EVERYTHING ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCountDisplay();
+      initColorSwitching();
+      setupFilter();
+    });
+  </script>
+
+  <!-- No need for products.js – everything is static -->
   <script src="js/cart.js"></script>
   <script src="js/whatsapp.js"></script>
   <script src="js/ui.js"></script>
-
 </body>
 
 </html>

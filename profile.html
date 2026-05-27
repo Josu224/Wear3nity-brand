@@ -13,12 +13,13 @@
 
 <body>
 
-  <!-- NAVBAR (same as others) -->
+  <!-- NAVBAR (Home added) -->
   <header class="navbar light">
 
     <div class="hamburger" onclick="toggleMenu()">☰</div>
 
     <nav class="nav-left">
+      <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
@@ -35,12 +36,13 @@
 
   </header>
 
-  <!-- MOBILE MENU -->
+  <!-- MOBILE MENU (Home added) -->
   <div id="mobile-menu" class="mobile-menu">
     <div class="menu-header">
       <span class="close-btn" onclick="toggleMenu()">✕</span>
     </div>
 
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="shop.html" onclick="toggleMenu()">Shop</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
@@ -48,131 +50,105 @@
 
   <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
 
+  <!-- PROFILE DASHBOARD -->
+  <section class="profile container">
 
+    <h1 class="page-title">My Account</h1>
 
+    <div class="profile-grid">
 
+      <!-- LEFT: AVATAR -->
+      <div class="profile-left">
+        <div class="avatar">
+          <img id="avatar-img" src="assets/images/user.png" alt="User">
+        </div>
 
-<!-- PROFILE DASHBOARD -->
-<section class="profile container">
-
-  <h1 class="page-title">My Account</h1>
-
-  <div class="profile-grid">
-
-    <!-- LEFT: AVATAR -->
-    <div class="profile-left">
-      <div class="avatar">
-        <img id="avatar-img" src="assets/images/user.png" alt="User">
+        <input type="file" id="avatar-input" accept="image/*" hidden>
+        <button class="btn small" onclick="changeAvatar()">Change Photo</button>
       </div>
 
-      <input type="file" id="avatar-input" accept="image/*" hidden>
-      <button class="btn small" onclick="changeAvatar()">Change Photo</button>
+      <!-- RIGHT: DETAILS -->
+      <div class="profile-right">
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="user-name" placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="user-email" placeholder="Your email">
+        </div>
+
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" id="user-phone" placeholder="Your phone number">
+        </div>
+
+        <div class="profile-actions">
+          <button class="btn primary" onclick="saveProfile()">Save Changes</button>
+          <button class="btn" onclick="logout()">Logout</button>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- RIGHT: DETAILS -->
-    <div class="profile-right">
+  </section>
 
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" id="user-name" placeholder="Your name">
-      </div>
+  <!-- USER INFO FORM -->
+  <div class="profile-form">
 
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="user-email" placeholder="Your email">
-      </div>
-
-      <div class="form-group">
-        <label>Phone</label>
-        <input type="text" id="user-phone" placeholder="Your phone number">
-      </div>
-
-      <div class="profile-actions">
-        <button class="btn primary" onclick="saveProfile()">Save Changes</button>
-        <button class="btn" onclick="logout()">Logout</button>
-      </div>
-
+    <div class="form-group">
+      <input type="text" id="name" required>
+      <label for="name">Full Name</label>
     </div>
 
-  </div>
-
-</section>
-
-<!-- USER INFO FORM -->
-<div class="profile-form">
-
-  <div class="form-group">
-    <input type="text" id="name" required >
-    <label for="name">Full Name</label>
-  </div>
-
-  <div class="form-group">
-    <input type="tel" id="phone" required>
-    <label for="phone">Phone Number</label>
-  </div>
-
-  <div class="form-group">
-    <textarea id="address" rows="3" required></textarea>
-    <label for="address">Delivery Address</label>
-  </div>
-
-  <button onclick="saveUserInfo()" class="btn primary full">
-    Save Profile
-  </button>
-
-</div>
-
-<!-- BACK TO HOME -->
-<div class="back-home">
-  <a href="#" onclick="history.back()">← Go Back</a>
-</div>
-
-<!-- footer -->
-<footer class="footer">
-
-  <div class="footer-content">
-
-    <!-- BRAND -->
-    <div class="footer-brand">
-      <h2>WEAR3NITY</h2>
-      <p>Minimal. Bold. Timeless.</p>
+    <div class="form-group">
+      <input type="tel" id="phone" required>
+      <label for="phone">Phone Number</label>
     </div>
 
-    <!-- SOCIALS -->
-    <div class="footer-socials">
-      <h3>Connect</h3>
-
-      <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener "
-        target="_blank" class="social-link">
-        Instagram
-      </a>
-
-      <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
-        class="social-link">
-        TikTok
-      </a>
-
-      <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">
-        WhatsApp
-      </a>
+    <div class="form-group">
+      <textarea id="address" rows="3" required></textarea>
+      <label for="address">Delivery Address</label>
     </div>
 
+    <button onclick="saveUserInfo()" class="btn primary full">
+      Save Profile
+    </button>
+
   </div>
 
-  <!-- BIG BACKGROUND TEXT -->
-  <div class="footer-bg-text">WEAR3NITY</div>
-
-  <!-- BOTTOM -->
-  <div class="footer-bottom">
-    <p>© 2026 WEAR3NITY — Built for the culture.</p>
+  <!-- BACK TO HOME -->
+  <div class="back-home">
+    <a href="#" onclick="history.back()">← Go Back</a>
   </div>
 
-</footer>
-
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h2>WEAR3NITY</h2>
+        <p>Minimal. Bold. Timeless.</p>
+      </div>
+      <div class="footer-socials">
+        <h3>Connect</h3>
+        <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener"
+          target="_blank" class="social-link">Instagram</a>
+        <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
+          class="social-link">TikTok</a>
+        <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">WhatsApp</a>
+      </div>
+    </div>
+    <div class="footer-bg-text">WEAR3NITY</div>
+    <div class="footer-bottom">
+      <p>© 2026 WEAR3NITY — Built for the culture.</p>
+    </div>
+  </footer>
 
   <script src="js/ui.js"></script>
   <script src="js/profile.js"></script>
-
 </body>
 
 </html>

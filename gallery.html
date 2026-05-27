@@ -3,37 +3,160 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Gallery | WEAR3NITY</title>
   <link rel="stylesheet" href="css/styles.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
     rel="stylesheet">
+  <style>
+    /* Gallery page specific styles */
+    .gallery-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 24px;
+    }
+
+    /* 2 columns on ALL screen sizes (mobile, tablet, desktop) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* Very tiny screens (below 400px) – optional fallback to 1 column if images become too small */
+    @media (max-width: 399px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    /* Slightly wider gap on larger screens */
+    @media (min-width: 768px) {
+      .gallery-grid {
+        gap: 24px;
+      }
+
+      .gallery-container {
+        padding: 30px 40px;
+      }
+    }
+
+    /* Gallery item styles */
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      /* Elegant portrait lookbook feel */
+      overflow: hidden;
+      border-radius: 16px;
+      background: #2A1D12;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    /* Hover effects only on devices that support hover (desktops/laptops) */
+    @media (hover: hover) {
+      .gallery-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.03);
+      }
+
+      .gallery-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      .gallery-item:hover::after {
+        opacity: 1;
+      }
+    }
+
+    /* Active tap effect for mobile */
+    @media (hover: none) {
+      .gallery-item:active {
+        transform: scale(0.98);
+        transition: transform 0.1s;
+      }
+    }
+
+    /* Page title styling – responsive */
+    .page-title {
+      font-size: 36px;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+      color: var(--luxe-cream, #F5EFE6);
+    }
+
+    .gallery-subtext {
+      font-size: 14px;
+      color: var(--text-muted, #B8A99A);
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    @media (min-width: 768px) {
+      .page-title {
+        font-size: 42px;
+      }
+
+      .gallery-subtext {
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 28px;
+      }
+
+      .gallery-subtext {
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+
+      .gallery-container {
+        padding: 12px 16px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- NAVBAR -->
   <header class="navbar light">
-
     <div class="hamburger" onclick="toggleMenu()">☰</div>
-
     <nav class="nav-left">
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
     </nav>
-
     <div class="logo">WEAR3NITY</div>
-
     <nav class="nav-right">
       <a href="profile.html" class="icon">👤</a>
       <a href="cart.html" class="icon cart-link">
         🛒 <span id="cart-count">0</span>
       </a>
     </nav>
-
   </header>
 
   <!-- MOBILE MENU -->
@@ -41,17 +164,12 @@
     <div class="menu-header">
       <span class="close-btn" onclick="toggleMenu()">✕</span>
     </div>
-
+    <a href="index.html" onclick="toggleMenu()">Home</a>
     <a href="shop.html" onclick="toggleMenu()">Shop</a>
     <a href="gallery.html" onclick="toggleMenu()">Gallery</a>
     <a href="about.html" onclick="toggleMenu()">About</a>
   </div>
-
   <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
-
-
-
-
 
   <!-- PAGE TITLE -->
   <section class="container">
@@ -59,106 +177,82 @@
     <p class="gallery-subtext">Moments. Style. Identity.</p>
   </section>
 
-  <!-- GALLERY GRID -->
+  <!-- GALLERY GRID – 2 columns on all devices (2x12) -->
   <section class="gallery-container">
     <div class="gallery-grid">
-
-      <div class="gallery-item">
-        <img src="assets/images/1.jpg" alt="Gallery Image 1">
+      <!-- 24 images (2 columns x 12 rows) – same list -->
+      <div class="gallery-item" onclick="openLightbox('assets/images/1.jpg')">
+        <img src="assets/images/1.jpg" alt="Gallery Image 1" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/cry3.jpg" alt="Gallery Image 2">
+      <div class="gallery-item" onclick="openLightbox('assets/images/cry3.jpg')">
+        <img src="assets/images/cry3.jpg" alt="Gallery Image 2" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/3.jpg" alt="Gallery Image 3">
+      <div class="gallery-item" onclick="openLightbox('assets/images/3.jpg')">
+        <img src="assets/images/3.jpg" alt="Gallery Image 3" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/zero-fuga2.jpg" alt="Girl in Hoodie">
+      <div class="gallery-item" onclick="openLightbox('assets/images/zero-fuga2.jpg')">
+        <img src="assets/images/zero-fuga2.jpg" alt="Girl in Hoodie" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/2.jpg" alt="Styled Outfit">
+      <div class="gallery-item" onclick="openLightbox('assets/images/2.jpg')">
+        <img src="assets/images/2.jpg" alt="Styled Outfit" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/retji.jpg" alt="New Arrival">
+      <div class="gallery-item" onclick="openLightbox('assets/images/retji.jpg')">
+        <img src="assets/images/retji.jpg" alt="New Arrival" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/4.jpg" alt="Front View">
+      <div class="gallery-item" onclick="openLightbox('assets/images/4.jpg')">
+        <img src="assets/images/4.jpg" alt="Front View" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/zero-fuga3.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/zero-fuga3.jpg')">
+        <img src="assets/images/zero-fuga3.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/5.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/5.jpg')">
+        <img src="assets/images/5.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/cry2.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/cry2.jpg')">
+        <img src="assets/images/cry2.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/6.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/6.jpg')">
+        <img src="assets/images/6.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/zero-fuga5.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/zero-fuga5.jpg')">
+        <img src="assets/images/zero-fuga5.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/7.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/7.jpg')">
+        <img src="assets/images/7.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/retji2.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/retji2.jpg')">
+        <img src="assets/images/retji2.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/8.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/8.jpg')">
+        <img src="assets/images/8.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/cry.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/cry.jpg')">
+        <img src="assets/images/cry.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/9.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/9.jpg')">
+        <img src="assets/images/9.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/retji3.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/retji3.jpg')">
+        <img src="assets/images/retji3.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/10.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/10.jpg')">
+        <img src="assets/images/10.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/zero-fuga6.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/zero-fuga6.jpg')">
+        <img src="assets/images/zero-fuga6.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/11.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/11.jpg')">
+        <img src="assets/images/11.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/retji5.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/retji5.jpg')">
+        <img src="assets/images/retji5.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/12.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/12.jpg')">
+        <img src="assets/images/12.jpg" alt="Product Image" loading="lazy">
       </div>
-
-      <div class="gallery-item">
-        <img src="assets/images/zero-fuga.jpg" alt="Product Image">
+      <div class="gallery-item" onclick="openLightbox('assets/images/zero-fuga.jpg')">
+        <img src="assets/images/zero-fuga.jpg" alt="Product Image" loading="lazy">
       </div>
-
     </div>
   </section>
 
@@ -167,33 +261,21 @@
     <img id="lightbox-img" src="assets/images/welcome.jpg" alt="Expanded Image">
   </div>
 
-  <!-- wear3nity to the world  -->
+  <!-- BANNER SECTION -->
   <section class="banner-section fade-in">
-
     <img src="assets/images/profile.jpg" alt="Wear3nity Banner" class="banner-img" />
-
     <div class="banner-overlay">
       <h2>WEAR3NITY TO THE WORLD</h2>
       <a href="about.html" class="btn primary">View</a>
     </div>
-
   </section>
 
-
-  <!-- Subscription Section -->
+  <!-- WHATSAPP SECTION -->
   <section class="whatsapp-section fade-in">
-
     <h2>Join our WhatsApp Group to get 10% off your first order</h2>
-
-    <p>
-      Join to get special offers, free giveaways, and once in a lifetime deals
-    </p>
-
+    <p>Join to get special offers, free giveaways, and once in a lifetime deals</p>
     <a href="https://chat.whatsapp.com/G8UYQotjYVEBVZTPSitOhn?mode=ems_wa_t" rel="noopener" target="_blank"
-      class="btn primary">
-      Join Now
-    </a>
-
+      class="btn primary">Join Now</a>
   </section>
 
   <!-- BACK TO HOME -->
@@ -201,55 +283,62 @@
     <a href="#" onclick="history.back()">← Go Back</a>
   </div>
 
-
-  <!-- footer -->
+  <!-- FOOTER -->
   <footer class="footer">
-
     <div class="footer-content">
-
-      <!-- BRAND -->
       <div class="footer-brand">
         <h2>WEAR3NITY</h2>
         <p>Minimal. Bold. Timeless.</p>
       </div>
-
-      <!-- SOCIALS -->
       <div class="footer-socials">
         <h3>Connect</h3>
-
-        <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener "
-          target="_blank" class="social-link">
-          Instagram
-        </a>
-
+        <a href="https://www.instagram.com/wear3nity.ng?igsh=YXQ2YmI0a3N0ZzFs&utm_source=qr" rel="noopener"
+          target="_blank" class="social-link">Instagram</a>
         <a href="https://www.tiktok.com/@wear3nity?_r=1&_t=ZS-93Otk3bDHwy" rel="noopener" target="_blank"
-          class="social-link">
-          TikTok
-        </a>
-
-        <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">
-          WhatsApp
-        </a>
+          class="social-link">TikTok</a>
+        <a href="https://wa.me/2347025776737" rel="noopener" target="_blank" class="social-link">WhatsApp</a>
       </div>
-
     </div>
-
-    <!-- BIG BACKGROUND TEXT -->
     <div class="footer-bg-text">WEAR3NITY</div>
-
-    <!-- BOTTOM -->
     <div class="footer-bottom">
       <p>© 2026 WEAR3NITY — Built for the culture.</p>
     </div>
-
   </footer>
 
+  <!-- LIGHTBOX & CART SCRIPT (improved touch support) -->
+  <script>
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = imageSrc;
+      lightbox.classList.add('active');
+      // Prevent body scroll when lightbox is open
+      document.body.style.overflow = 'hidden';
+    }
 
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Update cart count from localStorage
+    function updateCartCountDisplay() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountSpan = document.getElementById('cart-count');
+      if (cartCountSpan) cartCountSpan.textContent = totalItems;
+    }
+    document.addEventListener('DOMContentLoaded', updateCartCountDisplay);
+  </script>
 
   <script src="js/ui.js"></script>
   <script src="js/gallery.js"></script>
-
 </body>
 
 </html>

@@ -1,95 +1,122 @@
-// =========================
-// GET CART
-// =========================
-function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+// cart.js - updated to support color & size variants
+
+// Load cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartUI();
+  updateCartCount();
 }
 
-// =========================
-// SAVE CART
-// =========================
-function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
+// Update cart count badge on all pages
+function updateCartCount() {
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartBadges = document.querySelectorAll('#cart-count');
+  cartBadges.forEach(badge => {
+    if (badge) badge.textContent = totalItems;
+  });
 }
 
-// =========================
-// UPDATE QUANTITY
-// =========================
-function updateQty(index, newQty) {
-  let cart = getCart();
+// Add item to cart (used by index.html new buttons)
+window.addItemToCart = function (item) {
+  const existingIndex = cart.findIndex(i => i.id === item.id && i.color === item.color && i.size === item.size);
+  if (existingIndex > -1) {
+    cart[existingIndex].quantity += item.quantity;
+  } else {
+    cart.push(item);
+  }
+  saveCart();
+  alert(`${item.name} (${item.color}, ${item.size}) added to cart`);
+};
 
-  newQty = parseInt(newQty); // ✅ ensure number
-
-  if (isNaN(newQty) || newQty < 1) return; // 🚫 safety check
-  if (!cart[index]) return; // 🚫 prevent crash
-
-  cart[index].qty = newQty;
-
-  saveCart(cart);
-
-  if (typeof renderCart === "function") renderCart();
-  if (typeof updateCartCount === "function") updateCartCount();
-}
-
-// =========================
-// REMOVE ITEM
-// =========================
-function removeFromCart(index) {
-  let cart = getCart();
-
-  if (!cart[index]) return; // 🚫 prevent crash
-
+// Remove item
+function removeItem(index) {
   cart.splice(index, 1);
-
-  saveCart(cart);
-
-  if (typeof renderCart === "function") renderCart();
-  if (typeof updateCartCount === "function") updateCartCount();
-  if (!freshCart.length) return; // 🚫 prevent empty message
+  saveCart();
 }
 
-// =========================
-// BUILD CART MESSAGE (WITH USER)
-// =========================
-function buildCartMessage(cart) {
-  const user = JSON.parse(localStorage.getItem("user")) || {};
+// Update quantity
+function updateQuantity(index, newQty) {
+  if (newQty < 1) {
+    removeItem(index);
+  } else {
+    cart[index].quantity = newQty;
+    saveCart();
+  }
+}
 
-  let message = "🛒 *NEW ORDER - WEAR3NITY*\n\n";
+// Render cart page (if on cart.html)
+function renderCart() {
+  const cartContainer = document.getElementById('cart-items');
+  if (!cartContainer) return;
 
-  // 👤 CUSTOMER INFO
-  message += "*Customer Details*\n";
-  message += `Name: ${user.name || "Not provided"}\n`;
-  message += `Phone: ${user.phone || "Not provided"}\n`;
-  message += `Address: ${user.address || "Not provided"}\n\n`;
+  if (cart.length === 0) {
+    cartContainer.innerHTML = '<p style="color: var(--text-light);">Your cart is empty.</p>';
+    document.getElementById('cart-total').innerHTML = 'Total: ₦0';
+    document.getElementById('checkout-btn').style.display = 'none';
+    return;
+  }
 
-  message += "--------------------------\n\n";
-
+  let html = '';
   let total = 0;
-
-  cart.forEach((item, index) => {
-    const itemTotal = item.price * item.qty;
+  cart.forEach((item, idx) => {
+    const itemTotal = item.price * item.quantity;
     total += itemTotal;
-
-    message += `${index + 1}. *${item.name}*\n`;
-    message += `   Size: ${item.size}\n`;
-    message += `   Qty: ${item.qty}\n`;
-    message += `   Price: ₦${item.price}\n`;
-    message += `   Subtotal: ₦${itemTotal}\n\n`;
+    html += `
+      <div class="cart-item">
+        <div class="cart-details">
+          <div class="cart-top">
+            <h4>${item.name}</h4>
+            <button class="remove-btn" onclick="removeItem(${idx})">✕</button>
+          </div>
+          <div class="cart-meta">${item.color} / ${item.size}</div>
+          <div class="cart-price">₦${item.price.toLocaleString()}</div>
+          <div class="cart-bottom">
+            <div class="qty-box">
+              <button onclick="updateQuantity(${idx}, ${item.quantity - 1})">-</button>
+              <span>${item.quantity}</span>
+              <button onclick="updateQuantity(${idx}, ${item.quantity + 1})">+</button>
+            </div>
+            <div class="item-total">₦${itemTotal.toLocaleString()}</div>
+          </div>
+        </div>
+      </div>
+    `;
   });
 
-  message += "--------------------------\n";
-  message += `*TOTAL: ₦${total}*\n\n`;
-  message += "Please confirm availability. Thank you 🙏";
-
-  return encodeURIComponent(message);
+  cartContainer.innerHTML = html;
+  document.getElementById('cart-total').innerHTML = `Total: ₦${total.toLocaleString()}`;
+  document.getElementById('checkout-btn').style.display = 'block';
 }
 
-// =========================
-// SEND TO WHATSAPP
-// =========================
-function sendWhatsApp(message) {
-  const phone = "2347025776737"; // your number (no +)
-  const url = `https://wa.me/${phone}?text=${message}`;
-
-  window.open(url, "_blank");
+// Checkout via WhatsApp (collects all items with variants)
+function checkout() {
+  if (cart.length === 0) return;
+  let message = "My Order:\n";
+  cart.forEach(item => {
+    message += `${item.name} (${item.color}, ${item.size}) x${item.quantity} = ₦${(item.price * item.quantity).toLocaleString()}\n`;
+  });
+  const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+  message += `\nTotal: ₦${total.toLocaleString()}`;
+  window.open(`https://wa.me/2347025776737?text=${encodeURIComponent(message)}`, '_blank');
 }
+
+// Update UI and count on every load
+function updateCartUI() {
+  renderCart();
+  updateCartCount();
+}
+
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartUI();
+  const checkoutBtn = document.getElementById('checkout-btn');
+  if (checkoutBtn) checkoutBtn.onclick = checkout;
+});
+
+// Also expose functions globally
+window.removeItem = removeItem;
+window.updateQuantity = updateQuantity;
+window.checkout = checkout;
